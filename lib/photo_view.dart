@@ -1,18 +1,19 @@
 library photo_view;
 
 import 'dart:async';
+
+import 'package:after_layout/after_layout.dart';
 import 'package:flutter/material.dart';
 import 'package:photo_view/src/photo_view_computed_scale.dart';
 import 'package:photo_view/src/photo_view_controller.dart';
 import 'package:photo_view/src/photo_view_image_wrapper.dart';
 import 'package:photo_view/src/photo_view_scale_state.dart';
-import 'package:after_layout/after_layout.dart';
 import 'package:photo_view/src/photo_view_typedefs.dart';
 import 'package:photo_view/src/photo_view_utils.dart';
 
 export 'package:photo_view/src/photo_view_computed_scale.dart';
-export 'package:photo_view/src/photo_view_scale_state.dart';
 export 'package:photo_view/src/photo_view_controller.dart';
+export 'package:photo_view/src/photo_view_scale_state.dart';
 export 'package:photo_view/src/photo_view_typedefs.dart';
 
 /// A [StatefulWidget] that contains all the photo view rendering elements.
@@ -139,6 +140,7 @@ class PhotoView extends StatefulWidget {
     this.initialScale,
     this.basePosition,
     this.scaleStateCycle,
+    this.onDragPosition,
   })  : child = null,
         childSize = null,
         super(key: key);
@@ -165,6 +167,7 @@ class PhotoView extends StatefulWidget {
     this.initialScale,
     this.basePosition,
     this.scaleStateCycle,
+    this.onDragPosition,
   })  : loadingChild = null,
         imageProvider = null,
         gaplessPlayback = false,
@@ -233,6 +236,8 @@ class PhotoView extends StatefulWidget {
 
   /// Defines de next [PhotoViewScaleState] given the actual one. Default is [defaultScaleStateCycle]
   final ScaleStateCycle scaleStateCycle;
+
+  final OnDrag onDragPosition;
 
   @override
   State<StatefulWidget> createState() {
@@ -359,6 +364,7 @@ class _PhotoViewState extends State<PhotoView>
         _computedOuterSize,
         _childSize,
       ),
+      //onDragPosition: widget.onDragPosition,
     );
   }
 
@@ -405,6 +411,7 @@ class _PhotoViewState extends State<PhotoView>
         _computedOuterSize,
         _childSize,
       ),
+      onDragPosition: widget.onDragPosition,
     );
   }
 

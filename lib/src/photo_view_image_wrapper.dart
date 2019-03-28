@@ -15,6 +15,7 @@ class PhotoViewImageWrapper extends StatefulWidget {
     this.heroTag,
     this.enableRotation,
     this.transitionOnUserGestures = false,
+    this.onDragPosition,
     @required this.scaleBoundaries,
     @required this.basePosition,
     @required this.scaleStateCycle,
@@ -29,6 +30,7 @@ class PhotoViewImageWrapper extends StatefulWidget {
     this.heroTag,
     this.enableRotation,
     this.transitionOnUserGestures = false,
+    this.onDragPosition,
     @required this.scaleBoundaries,
     @required this.basePosition,
     @required this.scaleStateCycle,
@@ -47,10 +49,11 @@ class PhotoViewImageWrapper extends StatefulWidget {
   final ScaleBoundaries scaleBoundaries;
   final Alignment basePosition;
   final ScaleStateCycle scaleStateCycle;
+  final OnDrag onDragPosition;
 
   @override
   State<StatefulWidget> createState() {
-    return _PhotoViewImageWrapperState();
+    return _PhotoViewImageWrapperState(onDragPosition: onDragPosition);
   }
 }
 
@@ -68,6 +71,9 @@ class _PhotoViewImageWrapperState extends State<PhotoViewImageWrapper>
 
   AnimationController _rotationAnimationController;
   Animation<double> _rotationAnimation;
+
+  OnDrag onDragPosition;
+  _PhotoViewImageWrapperState({this.onDragPosition});
 
   double get scaleStateAwareScale {
     return widget.controller.scale ??
@@ -176,6 +182,24 @@ class _PhotoViewImageWrapperState extends State<PhotoViewImageWrapper>
 
     final double computedY =
         screenHeight < computedHeight ? y.clamp(minY, maxY) : 0.0;
+
+    if (onDragPosition != null) {
+      var info = DragInfo();
+      info.computedX = computedX;
+      info.maxX = maxX;
+      info.minX = minX;
+      onDragPosition(info);
+      //print('xxx');
+    }
+
+    /*if (widget != null && widget.onDragPosition != null) {
+      print('bxbxbxbxbxb');
+      var info = DragInfo();
+      info.computedX = computedX;
+      info.maxX = maxX;
+      info.minX = minY;
+      widget.onDragPosition(info);
+    }*/
 
     return Offset(computedX, computedY);
   }
@@ -390,3 +414,11 @@ class _CenterWithOriginalSizeDelegate extends SingleChildLayoutDelegate {
     return true;
   }
 }
+
+class DragInfo {
+  double maxX;
+  double minX;
+  double computedX;
+}
+
+typedef OnDrag = void Function(DragInfo info);
