@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:photo_view/src/photo_view_controller.dart';
 import 'package:photo_view/src/photo_view_scale_state.dart';
@@ -356,8 +358,8 @@ class _PhotoViewImageWrapperState extends State<PhotoViewImageWrapper>
                     const BoxDecoration(
                         color: const Color.fromRGBO(0, 0, 0, 1.0)),
               ),
-              onTap: widget.onTap,
-              onDoubleTap: nextScaleState,
+              //onTap: widget.onTap,
+              //onDoubleTap: nextScaleState,
               onScaleStart: onScaleStart,
               onScaleUpdate: onScaleUpdate,
               onScaleEnd: onScaleEnd,
@@ -367,6 +369,9 @@ class _PhotoViewImageWrapperState extends State<PhotoViewImageWrapper>
           }
         });
   }
+
+  StreamSubscription _tapStream;
+  int _countTap = 0;
 
   Widget _buildHero() {
     return widget.heroTag != null
