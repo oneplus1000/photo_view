@@ -141,6 +141,7 @@ class PhotoView extends StatefulWidget {
     this.basePosition,
     this.scaleStateCycle,
     this.onDragPosition,
+    this.onTap,
   })  : child = null,
         childSize = null,
         super(key: key);
@@ -168,6 +169,7 @@ class PhotoView extends StatefulWidget {
     this.basePosition,
     this.scaleStateCycle,
     this.onDragPosition,
+    this.onTap,
   })  : loadingChild = null,
         imageProvider = null,
         gaplessPlayback = false,
@@ -238,6 +240,8 @@ class PhotoView extends StatefulWidget {
   final ScaleStateCycle scaleStateCycle;
 
   final OnDrag onDragPosition;
+
+  final Function onTap;
 
   @override
   State<StatefulWidget> createState() {
@@ -364,6 +368,7 @@ class _PhotoViewState extends State<PhotoView>
         _computedOuterSize,
         _childSize,
       ),
+      onTap: widget.onTap,
       //onDragPosition: widget.onDragPosition,
     );
   }
@@ -412,6 +417,7 @@ class _PhotoViewState extends State<PhotoView>
         _childSize,
       ),
       onDragPosition: widget.onDragPosition,
+      onTap: widget.onTap,
     );
   }
 

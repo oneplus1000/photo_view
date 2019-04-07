@@ -19,6 +19,7 @@ class PhotoViewImageWrapper extends StatefulWidget {
     @required this.scaleBoundaries,
     @required this.basePosition,
     @required this.scaleStateCycle,
+    this.onTap,
   })  : customChild = null,
         super(key: key);
 
@@ -34,6 +35,7 @@ class PhotoViewImageWrapper extends StatefulWidget {
     @required this.scaleBoundaries,
     @required this.basePosition,
     @required this.scaleStateCycle,
+    this.onTap,
   })  : imageProvider = null,
         gaplessPlayback = false,
         super(key: key);
@@ -50,6 +52,7 @@ class PhotoViewImageWrapper extends StatefulWidget {
   final Alignment basePosition;
   final ScaleStateCycle scaleStateCycle;
   final OnDrag onDragPosition;
+  final Function onTap;
 
   @override
   State<StatefulWidget> createState() {
@@ -353,6 +356,7 @@ class _PhotoViewImageWrapperState extends State<PhotoViewImageWrapper>
                     const BoxDecoration(
                         color: const Color.fromRGBO(0, 0, 0, 1.0)),
               ),
+              onTap: widget.onTap,
               onDoubleTap: nextScaleState,
               onScaleStart: onScaleStart,
               onScaleUpdate: onScaleUpdate,
