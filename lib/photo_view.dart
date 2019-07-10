@@ -261,6 +261,7 @@ class _PhotoViewState extends State<PhotoView>
     final Completer completer = Completer<ImageInfo>();
     final ImageStream stream =
         widget.imageProvider.resolve(const ImageConfiguration());
+    /*
     final listener = (ImageInfo info, bool synchronousCall) {
       if (!completer.isCompleted) {
         completer.complete(info);
@@ -272,7 +273,20 @@ class _PhotoViewState extends State<PhotoView>
           });
         }
       }
-    };
+    };*/
+    final listener =
+        ImageStreamListener((ImageInfo info, bool synchronousCall) {
+      if (!completer.isCompleted) {
+        completer.complete(info);
+        if (mounted) {
+          setState(() {
+            _childSize =
+                Size(info.image.width.toDouble(), info.image.height.toDouble());
+            _loading = false;
+          });
+        }
+      }
+    });
     stream.addListener(listener);
     completer.future.then((_) {
       stream.removeListener(listener);
