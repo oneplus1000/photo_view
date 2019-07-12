@@ -11,6 +11,8 @@ import 'package:photo_view/src/photo_view_scale_state.dart';
 import 'package:photo_view/src/photo_view_typedefs.dart';
 import 'package:photo_view/src/photo_view_utils.dart';
 
+import 'drag.dart';
+
 export 'package:photo_view/src/photo_view_computed_scale.dart';
 export 'package:photo_view/src/photo_view_controller.dart';
 export 'package:photo_view/src/photo_view_scale_state.dart';

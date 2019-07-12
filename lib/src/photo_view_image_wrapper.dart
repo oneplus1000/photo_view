@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:photo_view/drag.dart';
 import 'package:photo_view/src/photo_view_controller.dart';
 import 'package:photo_view/src/photo_view_scale_state.dart';
 import 'package:photo_view/src/photo_view_typedefs.dart';
@@ -423,11 +424,3 @@ class _CenterWithOriginalSizeDelegate extends SingleChildLayoutDelegate {
     return true;
   }
 }
-
-class DragInfo {
-  double maxX;
-  double minX;
-  double computedX;
-}
-
-typedef OnDrag = void Function(DragInfo info);
