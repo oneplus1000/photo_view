@@ -88,24 +88,32 @@ class _PhotoViewImageWrapperState extends State<PhotoViewImageWrapper>
   }
 
   void handleScaleAnimation() {
-    widget.controller.scale = _scaleAnimation.value;
+    if(mounted) {
+      widget.controller.scale = _scaleAnimation.value;
+    }
   }
 
   void handlePositionAnimate() {
-    widget.controller.position = _positionAnimation.value;
+    if(mounted) {
+      widget.controller.position = _positionAnimation.value;
+    }
   }
 
   void handleRotationAnimation() {
-    widget.controller.rotation = _rotationAnimation.value;
+    if(mounted) {
+      widget.controller.rotation = _rotationAnimation.value;
+    }
   }
 
   void onScaleStart(ScaleStartDetails details) {
     _rotationBefore = widget.controller.rotation;
     _scaleBefore = scaleStateAwareScale;
     _normalizedPosition = details.focalPoint - widget.controller.position;
-    _scaleAnimationController.stop();
-    _positionAnimationController.stop();
-    _rotationAnimationController.stop();
+    if (mounted) {
+      _scaleAnimationController.stop();
+      _positionAnimationController.stop();
+      _rotationAnimationController.stop();
+    }
   }
 
   void onScaleUpdate(ScaleUpdateDetails details) {
@@ -189,6 +197,8 @@ class _PhotoViewImageWrapperState extends State<PhotoViewImageWrapper>
     final double computedY =
         screenHeight < computedHeight ? y.clamp(minY, maxY) : 0.0;
 
+    //print('computedX,Y = $computedX,$computedY ');
+
     if (onDragPosition != null) {
       var info = DragInfo();
       info.computedX = computedX;
@@ -215,9 +225,11 @@ class _PhotoViewImageWrapperState extends State<PhotoViewImageWrapper>
       begin: from,
       end: to,
     ).animate(_scaleAnimationController);
-    _scaleAnimationController
-      ..value = 0.0
-      ..fling(velocity: 0.4);
+    if(mounted) {
+      _scaleAnimationController
+        ..value = 0.0
+        ..fling(velocity: 0.4);
+    }
   }
 
   void animatePosition(Offset from, Offset to) {
