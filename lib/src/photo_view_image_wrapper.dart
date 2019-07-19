@@ -88,19 +88,19 @@ class _PhotoViewImageWrapperState extends State<PhotoViewImageWrapper>
   }
 
   void handleScaleAnimation() {
-    if(mounted) {
+    if (mounted) {
       widget.controller.scale = _scaleAnimation.value;
     }
   }
 
   void handlePositionAnimate() {
-    if(mounted) {
+    if (mounted) {
       widget.controller.position = _positionAnimation.value;
     }
   }
 
   void handleRotationAnimation() {
-    if(mounted) {
+    if (mounted) {
       widget.controller.rotation = _rotationAnimation.value;
     }
   }
@@ -225,7 +225,7 @@ class _PhotoViewImageWrapperState extends State<PhotoViewImageWrapper>
       begin: from,
       end: to,
     ).animate(_scaleAnimationController);
-    if(mounted) {
+    if (mounted) {
       _scaleAnimationController
         ..value = 0.0
         ..fling(velocity: 0.4);
